@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-08-30T21:52:51Z"
+  labels:
+    com.docker.service.id: example-app-web
+    com.docker.service.name: web
+    com.docker.stack.namespace: example-app
+  name: web
+  namespace: default
+  ownerReferences:
+  - apiVersion: compose.docker.com/v1alpha3
+    blockOwnerDeletion: true
+    controller: true
+    kind: Stack
+    name: example-app
+    uid: a48273a1-ab29-4f93-8875-fb71b4346a21
+  resourceVersion: "136985"
+  selfLink: /api/v1/namespaces/default/services/web
+  uid: fceaefd1-ba15-4b8c-bfc3-b5e72659126d
+spec:
+  clusterIP: None
+  ports:
+  - name: headless
+    port: 55555
+    protocol: TCP
+    targetPort: 55555
+  selector:
+    com.docker.service.id: example-app-web
+    com.docker.service.name: web
+    com.docker.stack.namespace: example-app
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

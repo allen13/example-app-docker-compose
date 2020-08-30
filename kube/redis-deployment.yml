@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    com.docker.stack.expected-generation: "1"
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2020-08-30T21:52:51Z"
+  generation: 1
+  labels:
+    com.docker.service.id: example-app-redis
+    com.docker.service.name: redis
+    com.docker.stack.namespace: example-app
+  name: redis
+  namespace: default
+  ownerReferences:
+  - apiVersion: compose.docker.com/v1alpha3
+    blockOwnerDeletion: true
+    controller: true
+    kind: Stack
+    name: example-app
+    uid: a48273a1-ab29-4f93-8875-fb71b4346a21
+  resourceVersion: "137031"
+  selfLink: /apis/apps/v1/namespaces/default/deployments/redis
+  uid: 0391c4e0-20c3-4ea4-8f0b-6b90ef8c00a1
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      com.docker.service.id: example-app-redis
+      com.docker.service.name: redis
+      com.docker.stack.namespace: example-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        com.docker.service.id: example-app-redis
+        com.docker.service.name: redis
+        com.docker.stack.namespace: example-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: beta.kubernetes.io/os
+                operator: In
+                values:
+                - linux
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+      containers:
+      - image: redis:alpine
+        imagePullPolicy: IfNotPresent
+        name: redis
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2020-08-30T21:52:53Z"
+    lastUpdateTime: "2020-08-30T21:52:53Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2020-08-30T21:52:51Z"
+    lastUpdateTime: "2020-08-30T21:52:53Z"
+    message: ReplicaSet "redis-84cdd67db" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
