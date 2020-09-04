@@ -5,8 +5,18 @@ import redis
 from flask import Flask
 
 app = Flask(__name__)
+
 redis_host = os.getenv('REDIS_HOST')
 redis_port = os.getenv('REDIS_PORT')
+
+if not redis_host:
+    print("Provide REDIS_HOST environment variable")
+    exit(1)
+
+if not redis_port:
+    print("Provide REDIS_PORT environment variable")
+    exit(1)
+
 cache = redis.Redis(host=redis_host, port=int(redis_port))
 
 
