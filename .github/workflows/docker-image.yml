@@ -14,6 +14,6 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: allen13/example-app-docker-compose/example
+          registry:  ghcr.io
+          repository: allen13/example-app-docker-compose
           tag_with_ref: true
